@@ -1,0 +1,38 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "TS Node",
+            "program": "${workspaceFolder}/dist/api/main.js",
+            // "preLaunchTask": "tsc: build - ${workspaceFolder}/tsconfig.json",
+            "args": [
+                "${workspaceFolder}/src/api/main.ts"
+            ],
+            "runtimeArgs": [
+                "--nolazy",
+                "-r",
+                "ts-node/register"
+            ],
+            "sourceMaps": true,
+            // "cwd": "${workspaceRoot}",
+            "protocol": "inspector",
+            "console": "integratedTerminal",
+            "outFiles": [
+                "${workspaceFolder}/dist/**/*.js"
+            ],
+            "skipFiles": [
+                "${workspaceRoot}/node_modules/**/*.js",
+                "<node_internals>/**/*.js",
+                "${workspaceRoot}/ask_assert/**/*.*"
+            ],
+            "env": {
+                "NODE_ENV": "locale",
+                "SERVICES": "chargecenter",
+                "ENABLE_NODE_LOG": "YES"
+            }
+        }
+    ]
+}

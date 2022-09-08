@@ -1,0 +1,32 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "noUnusedLocals": true,
+    "target": "es2017",
+    "sourceMap": true,
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "paths": {
+      "@modules/*": ["src/api/modules/*"],
+      "@interfaces/*": ["src/core/interfaces/*"],
+      "@dto/*": ["src/core/dto/*"],
+      "@service/*": ["src/core/service/*"],
+      "@entity/*": ["src/core/entity/*"],
+      "@enums/*": ["src/core/enums/*"],
+      "@utils/*": ["src/core/utils/*"],
+      "@filters/*": ["src/core/middleware/filters/*"],
+      "@interceptors/*": ["src/core/middleware/interceptors/*"],
+      "@middleware/*": ["src/core/middleware/middleware/*"],
+      "@pipes/*": ["src/core/middleware/pipes/*"],
+      "@guard/*": ["src/core/middleware/guard/*"],
+      "@decorators/*": ["src/core/decorators/*"],
+      "@exception/*": ["src/core/exception/*"]
+    },
+    "incremental": true
+  },
+  "exclude": ["node_modules", "dist"]
+}

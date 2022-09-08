@@ -1,0 +1,32 @@
+{
+    "defaultSeverity": "error",
+    "extends": ["tslint:recommended"],
+    "jsRules": {
+        "no-unused-expression": true
+    },
+    "rules": {
+        "no-restricted-globals": [true, "name", "length", "event"],
+        "quotemark": [true, "single", "avoid-escape"], //引号的使用规则
+        "semicolon": [true, "always", "ignore-interfaces"], //分号的使用规则
+        "indent": [true, "spaces", 4], //使用Tab进行缩进，每次强制缩进2个字符
+        "whitespace": false, //空格的校验
+        "member-access": false, //类成员的显示可见性声明，即显示定义一个类的成员是否可见，即对类成员定义public | static 等
+        "one-line": false, //要求指定的标记与它们之前的表达式位于同一行
+        "trailing-comma": [true, { //对尾随逗号的校验
+            "multiline": {
+                "objects": "never",
+                "arrays": "never",
+                "functions": "never",
+                "typeLiterals": "never"
+            },
+            "esSpecCompliant": false //是否允许尾随逗号出现在剩余变量中
+        }],
+        "no-console": false, // 运行console使用
+        "max-line-length": [true, 320], // 每行代码最多字符 320
+        "jsdoc-format": false, // 如果使用/*注释*/可以不按照jsdoc规范
+        "interface-name": [true, "never-prefix"], // 接口名称是否需要前缀
+        "object-literal-sort-keys": false, // 属性是否排序
+        "max-classes-per-file": false  // 一个文件是否只能有一个类
+    },
+    "rulesDirectory": []
+  }

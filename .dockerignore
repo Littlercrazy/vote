@@ -1,0 +1,11 @@
+# Ignore files
+node_modules/*
+doc/*
+coverage/*
+logs/*
+temp/*
+test/*
+.gitlab-ci.yml
+.gitignore
+*.log
+.viscode/
