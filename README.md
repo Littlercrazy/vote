@@ -65,13 +65,14 @@
 ```
 
 ### 启动命令说明
-第一次使用的时候先yarn, 并且需要 mysql 的数据库 和redis配置
+基于typescript和nestjs开发
+第一次使用的时候先yarn, 并且需要 mysql 的数据库 和redis缓存，config目录配置
 再次运行npm start然后可以启动api服务
 浏览器中访问：http://localhost:4041/api/v1/admin/login
-项目集成swagger 访问http://localhost:4041/api
+项目集成swagger文档访问:http://localhost:4041/api
+使用docker打包镜像基于node16.16版本 docker ./docker-build.sh
 ```
 npm run start:ts: 启动api服务
 npm run start: 启动api服务，有热启动
 npm run lint: lint检查并自动修复
-npm run test: 运行单元测试
 ```

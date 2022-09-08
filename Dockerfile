@@ -1,5 +1,5 @@
 # 依赖在单独的镜像中安装
-FROM dockerhub.followme-internal.com/node/node-12.6:v1 as build-node-nest-demo
+FROM dockerhub.followme-internal.com/node/node-16.16:v1 as build-node-nest-demo
 WORKDIR /app
 
 COPY package.json /app
@@ -7,8 +7,8 @@ COPY yarn.lock /app
 RUN yarn --production
 
 # 构建项目镜像
-FROM dockerhub.followme-internal.com/node/alinode-12.6:v1
-LABEL maintainer="chenhao@followme-inc.com"
+FROM dockerhub.followme-internal.com/node/alinode-16.16:v1
+LABEL maintainer="duanfeng@demo.com"
 WORKDIR /app
 
 ENV ENABLE_NODE_LOG=YES \
