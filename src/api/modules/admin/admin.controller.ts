@@ -54,6 +54,7 @@ export class AdminController {
             if (crypto.createHash('md5').update(body.password).digest('hex') === u.password) {
                 // 写cookie
                 const token = CookieUtil.getToken();
+                console.log(token);
                 CookieUtil.setCookie(req, res, token);
                 // token写入redis
                 await RedisUtil.setNoError(`token:${token}`, JSON.stringify(u), CONFIG.COOKIE_MAX_AGE);
@@ -95,7 +96,7 @@ export class AdminController {
             createTime: DateUtil.now(),
             updateTime: DateUtil.now()
         });
-        await this.adminService.save(election);
+        await this.electionService.save(election);
         return {
             flag: true
         };
@@ -171,14 +172,20 @@ export class AdminController {
             // 候选人已经存在
             throw new ApiException(ErrorCode.PARAM_ERROR);
         }
+        const idCardPatt = /^[A-Z]{1}[0-9]{6}\([0-9]{1}\)$/;
+        if (!idCardPatt.test(body.idCard)) {
+            // 身份证格式错误
+            throw new ApiException(ErrorCode.PARAM_ERROR);
+        }
         const candidate = new Candidate({
             name: body.name,
             idCard: body.idCard,
+            electionId,
             result: 0,
             createTime: DateUtil.now(),
             updateTime: DateUtil.now()
         });
-        await this.adminService.save(candidate);
+        await this.candidateService.save(candidate);
         return {
             flag: true
         };
@@ -219,7 +226,7 @@ export class AdminController {
     })
     @UseGuards(LoginGuard)
     async getVoteListByCandidate(@Param('canditionId') canditionId: number, @Query() query: PageParamQuery): Promise<any> {
-        return await this.voteService.getListAndCountById(canditionId, query.pageIndex, query.pageIndex, query.lastId);
+        return await this.voteService.getListAndCountById(canditionId, query.pageIndex, query.pageSize, query.lastId);
     }
 
     private async sendEmailResult(electionId: number): Promise<any> {

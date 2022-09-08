@@ -24,8 +24,8 @@ export class VoteService extends BaseOrmService<Vote> {
     async getListAndCountById(candidateId: number, pageIndex, pageSize, lastId: number): Promise<{items: Vote[], total: number}> {
         const queryBuilder = this.voteRepository
             .createQueryBuilder()
-            .select('id, email, createTime')
-            .where('candidateId = :candidateId', { candidateId })
+            .select('id, email, create_time')
+            .where('candidate_id = :candidateId', { candidateId })
             .skip((pageIndex - 1) * pageSize)
             .take(pageSize)
             .orderBy('id', 'DESC');
@@ -45,7 +45,7 @@ export class VoteService extends BaseOrmService<Vote> {
         const queryBuilder = this.voteRepository
             .createQueryBuilder()
             .select('id')
-            .where('candidateId = :candidateId', { candidateId })
+            .where('candidate_id = :candidateId', { candidateId })
         const total = await  queryBuilder.getCount();
         return total;
     }

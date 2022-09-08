@@ -49,7 +49,7 @@ export class VoteController {
             throw new ApiException(ErrorCode.PARAM_ERROR);
         }
         const emailPatt = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
-        const idCardPatt = /"^[A-Z]{1}\\d{6}\\([0-9]{1}\\)$"/
+        const idCardPatt = /^[A-Z]{1}[0-9]{6}\([0-9]{1}\)$/;
         if (!emailPatt.test(email)) {
             // 邮箱格式错误
             throw new ApiException(ErrorCode.PARAM_ERROR);
@@ -87,6 +87,6 @@ export class VoteController {
         type: VoteListAndCountResponse
     })
     async getCandidateData(@Param('id') id: number, @Query() query: PageParamQuery): Promise<any> {
-        return await this.voteService.getListAndCountById(id, query.pageIndex, query.pageIndex, query.lastId);
+        return await this.voteService.getListAndCountById(id, query.pageIndex, query.pageSize, query.lastId);
     }
 }

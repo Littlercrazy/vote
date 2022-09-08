@@ -15,7 +15,7 @@ export class LoggingInterceptor implements NestInterceptor {
         return next
             .handle()
             .pipe(tap(() =>
-                console.log(`${request?._logBody}, consuming: ${new Date().getTime() - request?._logTime}ms, status: ${response.statusCode}`)
+                request.logger.info(`${request?._logBody}, consuming: ${new Date().getTime() - request?._logTime}ms, status: ${response.statusCode}`)
             ));
     }
 }

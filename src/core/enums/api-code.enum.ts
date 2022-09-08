@@ -19,5 +19,5 @@ export enum ErrorCode {
 
 export enum SuccessCode {
     SUCCESS = 0,
-    HTTP_OK
+    HTTP_OK = 200
 }

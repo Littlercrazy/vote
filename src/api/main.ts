@@ -13,22 +13,17 @@ import { CorsMiddleware } from '@middleware/cors.middleware';
 import { TokenMiddleware } from '@middleware/token.middleware';
 import { ApiParamsValidationPipe } from '@pipes/api-params-validation.pipe';
 import { CONFIG } from '@utils/config.util';
+const logger = require('../core/utils/logger')
 
 async function bootstrap() {
     const app = await NestFactory.create(ApplicationModule);
-    const options = new DocumentBuilder()
-    .setTitle('选举投票系统接口文档')
-    .setDescription('选举投票系统接口文档')
-    .setVersion('1.0.0')
-    .build();
-    const document = SwaggerModule.createDocument(app, options);
-    SwaggerModule.setup('/api', app, document);
     // 挂载全局 request 公用工具，参数等
     app.use((request, response, next) => {
         request._ip = request.headers['x-real-ip'] || request.connection.remoteAddress || request.ip;
         const reqLog = 'ip: ' + request?._ip + ', method: ' + request?.method + ', url: ' + request?.originalUrl;
         request._logBody = reqLog;
         request._logTime = new Date().getTime();
+        request.logger = logger.createLog(request.traceId);  // 挂载日志
         next();
     });
 
@@ -44,6 +39,13 @@ async function bootstrap() {
     app.useGlobalPipes(new ApiParamsValidationPipe());
     app.useGlobalFilters(new AllExceptionFilter(app.getHttpAdapter()));
     app.setGlobalPrefix('/api/v1');
+    const options = new DocumentBuilder()
+    .setTitle('选举投票系统接口文档')
+    .setDescription('选举投票系统接口文档')
+    .setVersion('1.0.0')
+    .build();
+    const document = SwaggerModule.createDocument(app, options);
+    SwaggerModule.setup('/api', app, document);
     await app.listen(CONFIG.port, () => {
         console.log('服务已经启动，监听端口是: ', CONFIG.port);
     });
